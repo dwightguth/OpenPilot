@@ -982,7 +982,7 @@ int32_t UAVObjSetInstanceDataField(UAVObjHandle obj_handle, uint16_t instId, con
         }
 
         // Set data
-        memcpy(InstanceData(instEntry) + offset, dataIn, size);
+        memcpy((char *)InstanceData(instEntry) + offset, dataIn, size);
     }
 
 
