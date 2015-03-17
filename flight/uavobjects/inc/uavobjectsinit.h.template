@@ -32,6 +32,6 @@ void UAVObjectsInitializeAll();
 #define UAVOBJECTS_LARGEST $(SIZECALCULATION)
 #define UAVOBJECTS_COUNT $(COUNTCALCULATION)
 
-static UAVObjHandle _uavo_handles[UAVOBJECTS_COUNT];
+UAVObjHandle _uavo_handles[UAVOBJECTS_COUNT];
 
 #endif // UAVOBJECTSINIT_H
