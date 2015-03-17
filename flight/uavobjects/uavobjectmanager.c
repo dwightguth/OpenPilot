@@ -34,6 +34,7 @@
 #include "openpilot.h"
 #include "pios_struct_helper.h"
 #include "inc/uavobjectprivate.h"
+#include <uavobjectsinit.h>
 
 // Private functions
 static InstanceHandle createInstance(struct UAVOData *obj, uint16_t instId);
@@ -77,12 +78,8 @@ int32_t UAVObjInitialize()
     // Initialize variables
     memset(&stats, 0, sizeof(UAVObjStats));
 
-    /* Initialize _uavo_handles start/stop pointers */
-        #if (defined(__MACH__) && defined(__APPLE__))
-    uint64_t aslr_offset = (uint64_t)&_aslr_offset - getsectbyname("__DATA", "_aslr")->addr;
-    __start__uavo_handles = (struct UAVOData * *)(getsectbyname("__DATA", "_uavo_handles")->addr + aslr_offset);
-    __stop__uavo_handles  = (struct UAVOData * *)((uint64_t)__start__uavo_handles + getsectbyname("__DATA", "_uavo_handles")->size);
-        #endif
+    __start__uavo_handles = (struct UAVOData **) _uavo_handles;
+    __stop__uavo_handles = (struct UAVOData **) _uavo_handles + UAVOBJECTS_COUNT;
 
     // Initialize the uavo handle table
     memset(__start__uavo_handles, 0,

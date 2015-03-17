@@ -40,7 +40,7 @@ public:
     QDir flightOutputPath;
 
 private:
-    bool process_object(ObjectInfo *info);
+    bool process_object(ObjectInfo *info, int objidx);
 };
 
 #endif

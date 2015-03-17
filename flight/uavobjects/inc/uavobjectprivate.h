@@ -43,16 +43,8 @@
 static long _aslr_offset __attribute__((section("__DATA,_aslr")));
 #endif
 
-/* Table of UAVO handles */
-#if (defined(__MACH__) && defined(__APPLE__))
-/* Mach-o format */
 static struct UAVOData * *__start__uavo_handles;
 static struct UAVOData * *__stop__uavo_handles;
-#else
-/* ELF format: automagically defined at compile time */
-extern struct UAVOData *__start__uavo_handles[] __attribute__((weak));
-extern struct UAVOData *__stop__uavo_handles[] __attribute__((weak));
-#endif
 
 #define UAVO_LIST_ITERATE(_item) \
     for (struct UAVOData * *_uavo_slot = __start__uavo_handles; \

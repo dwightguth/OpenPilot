@@ -53,7 +53,7 @@ bool UAVObjectGeneratorFlight::generate(UAVObjectParser *parser, QString templat
     sizeCalc = 0;
     for (int objidx = 0; objidx < parser->getNumObjects(); ++objidx) {
         ObjectInfo *info = parser->getObjectByIndex(objidx);
-        process_object(info);
+        process_object(info, objidx);
         flightObjInit.append("#ifdef UAVOBJ_INIT_" + info->namelc + "\n");
         flightObjInit.append("    " + info->name + "Initialize();\n");
         flightObjInit.append("#endif\n");
@@ -77,6 +77,7 @@ bool UAVObjectGeneratorFlight::generate(UAVObjectParser *parser, QString templat
 
     // Write the flight object initialization header
     flightInitIncludeTemplate.replace(QString("$(SIZECALCULATION)"), QString().setNum(sizeCalc));
+    flightInitIncludeTemplate.replace(QString("$(COUNTCALCULATION)"), QString().setNum(parser->getNumObjects()));
     res = writeFileIfDiffrent(flightOutputPath.absolutePath() + "/uavobjectsinit.h",
                               flightInitIncludeTemplate);
     if (!res) {
@@ -101,7 +102,7 @@ bool UAVObjectGeneratorFlight::generate(UAVObjectParser *parser, QString templat
 /**
  * Generate the Flight object files
  **/
-bool UAVObjectGeneratorFlight::process_object(ObjectInfo *info)
+bool UAVObjectGeneratorFlight::process_object(ObjectInfo *info, int objidx)
 {
     if (info == NULL) {
         return false;
@@ -392,6 +393,8 @@ bool UAVObjectGeneratorFlight::process_object(ObjectInfo *info)
         }
     }
     outInclude.replace(QString("$(SETGETFIELDSEXTERN)"), setgetfieldsextern);
+
+    outCode.replace(QString("$(OBJIDX)"), QString().setNum(objidx));
 
     // Write the flight code
     bool res = writeFileIfDiffrent(flightOutputPath.absolutePath() + "/" + info->namelc + ".c", outCode);
