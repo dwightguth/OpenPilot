@@ -162,7 +162,7 @@ CFLAGS += $(BLONLY_CDEFS)
 ifeq ($(DEBUG),YES)
 CFLAGS += -O0
 CFLAGS += -DGENERAL_COV
-CFLAGS += -finstrument-functions -ffixed-r10
+#CFLAGS += -finstrument-functions -ffixed-r10
 else
 CFLAGS += -Os
 endif
@@ -230,25 +230,25 @@ CSTANDARD = -std=gnu99
 #
 # Flags for C and C++ (arm-elf-gcc/arm-elf-g++)
 
-CFLAGS += -g$(DEBUGF)
+#CFLAGS += -g$(DEBUGF)
 
-CFLAGS += -ffast-math
+#CFLAGS += -ffast-math
 
 #CFLAGS += -mcpu=$(MCU)
 CFLAGS += $(CDEFS)
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS)) -I.
 
 #CFLAGS += -mapcs-frame
-CFLAGS += -fomit-frame-pointer
+#CFLAGS += -fomit-frame-pointer
 ifeq ($(CODE_SOURCERY), YES)
 CFLAGS += -fpromote-loop-indices
 endif
 
-CFLAGS += -Wall
+#CFLAGS += -Wall
 #CFLAGS += -Werror
-CFLAGS += -Wa,-adhlns=$(addprefix $(OUTDIR)/, $(notdir $(addsuffix .lst, $(basename $<))))
+#CFLAGS += -Wa,-adhlns=$(addprefix $(OUTDIR)/, $(notdir $(addsuffix .lst, $(basename $<))))
 # Compiler flags to generate dependency files:
-CFLAGS += -MD -MP -MF $(OUTDIR)/dep/$(@F).d
+#CFLAGS += -MD -MP -MF $(OUTDIR)/dep/$(@F).d
 
 # flags only for C
 #CONLYFLAGS += -Wnested-externs
