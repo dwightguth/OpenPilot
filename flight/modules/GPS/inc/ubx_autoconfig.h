@@ -145,15 +145,15 @@ typedef struct {
 // -------------------------------------5---------4---------3---------2
 // ------------------------------------10987654321098765432109876543210
 // WAAS 122, 133, 134, 135, 138---------|---------|---------|---------|
-#define UBX_CFG_SBAS_SCANMODE1_WAAS  0b00000000000001001110000000000100
+#define UBX_CFG_SBAS_SCANMODE1_WAAS  0x4e004
 // EGNOS 120, 124, 126, 131-------------|---------|---------|---------|
-#define UBX_CFG_SBAS_SCANMODE1_EGNOS 0b00000000000000000000100001010001
+#define UBX_CFG_SBAS_SCANMODE1_EGNOS 0x851
 // MSAS 129, 137------------------------|---------|---------|---------|
-#define UBX_CFG_SBAS_SCANMODE1_MSAS  0b00000000000000100000001000000000
+#define UBX_CFG_SBAS_SCANMODE1_MSAS  0x20200
 // GAGAN 127, 128-----------------------|---------|---------|---------|
-#define UBX_CFG_SBAS_SCANMODE1_GAGAN 0b00000000000000000000000110000000
+#define UBX_CFG_SBAS_SCANMODE1_GAGAN 0x180
 // SDCM 125, 140, 141-------------------|---------|---------|---------|
-#define UBX_CFG_SBAS_SCANMODE1_SDCM  0b00000000001100000000000000100000
+#define UBX_CFG_SBAS_SCANMODE1_SDCM  0x300020
 
 #define UBX_CFG_SBAS_SCANMODE2       0x00
 typedef struct {
@@ -171,19 +171,21 @@ typedef struct {
     uint16_t len;
 } __attribute__((packed)) UBXSentHeader_t;
 
+struct UBXSentPacket {
+    UBXSentHeader_t header;
+    union {
+        ubx_cfg_cfg_t  cfg_cfg;
+        ubx_cfg_msg_t  cfg_msg;
+        ubx_cfg_nav5_t cfg_nav5;
+        ubx_cfg_rate_t cfg_rate;
+        ubx_cfg_sbas_t cfg_sbas;
+    } payload;
+    uint8_t resvd[2]; // added space for checksum bytes
+} __attribute__((packed));
+ 
 typedef union {
-    uint8_t buffer[0];
-    struct {
-        UBXSentHeader_t header;
-        union {
-            ubx_cfg_cfg_t  cfg_cfg;
-            ubx_cfg_msg_t  cfg_msg;
-            ubx_cfg_nav5_t cfg_nav5;
-            ubx_cfg_rate_t cfg_rate;
-            ubx_cfg_sbas_t cfg_sbas;
-        } payload;
-        uint8_t resvd[2]; // added space for checksum bytes
-    } message;
+    uint8_t buffer[sizeof(struct UBXSentPacket)];
+    struct UBXSentPacket message;
 } __attribute__((packed)) UBXSentPacket_t;
 
 void ubx_autoconfig_run(char * *buffer, uint16_t *bytes_to_send, bool gps_connected);

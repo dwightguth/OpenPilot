@@ -362,7 +362,11 @@ struct UBX_OP_MAG {
 };
 
 typedef union {
-    uint8_t payload[0];
+#if defined(PIOS_GPS_MINIMAL)
+    uint8_t payload[sizeof(struct UBX_NAV_SOL)];
+#else
+    uint8_t payload[sizeof(struct UBX_NAV_PVT)];
+#endif
     // Nav Class
     struct UBX_NAV_POSLLH  nav_posllh;
     struct UBX_NAV_STATUS  nav_status;

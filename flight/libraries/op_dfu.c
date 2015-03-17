@@ -149,7 +149,7 @@ void processComand(uint8_t *xReceive_Buffer)
         Opt[i] = unpack_uint32(&xReceive_Buffer[DATA + 4 * (i + 1)]);
     }
 
-    Command = Command & 0b00011111;
+    Command = Command & 0x1f;
 
     if (EchoReqFlag == 1) {
         memcpy(echoBuffer, xReceive_Buffer, 64);

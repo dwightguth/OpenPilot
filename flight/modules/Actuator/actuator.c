@@ -646,7 +646,7 @@ static inline bool buzzerState(buzzertype type)
     if (type == BUZZ_BUZZER) {
         // Decide what tune to play
         if (AlarmsGet(SYSTEMALARMS_ALARM_BATTERY) > SYSTEMALARMS_ALARM_WARNING) {
-            newTune = 0b11110110110000; // pause, short, short, short, long
+            newTune = 0x3db0; // pause, short, short, short, long
         } else if (AlarmsGet(SYSTEMALARMS_ALARM_GPS) >= SYSTEMALARMS_ALARM_WARNING) {
             newTune = 0x80000000; // pause, short
         } else {
@@ -661,9 +661,9 @@ static inline bool buzzerState(buzzertype type)
         // Merge the error pattern for InfoLed
         if (type == BUZZ_INFO) {
             if (AlarmsGet(SYSTEMALARMS_ALARM_BATTERY) > SYSTEMALARMS_ALARM_WARNING) {
-                newTune |= 0b00000000001111111011111110000000;
+                newTune |= 0x3fbf80;
             } else if (AlarmsGet(SYSTEMALARMS_ALARM_GPS) >= SYSTEMALARMS_ALARM_WARNING) {
-                newTune |= 0b00000000000000110110110000000000;
+                newTune |= 0x36c00;
             }
         }
         // fast double blink pattern if armed

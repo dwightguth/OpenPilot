@@ -292,7 +292,7 @@ void setColor(uint8_t color, ledbuf_t *buf)
     uint8_t i;
 
     for (i = 0; i < 8; i++) {
-        buf[i] = ((color << i) & 0b10000000 ? 0x0 : dmaSource[0]);
+        buf[i] = ((color << i) & 0x80 ? 0x0 : dmaSource[0]);
     }
 }
 
