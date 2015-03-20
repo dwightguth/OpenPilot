@@ -4,12 +4,10 @@
 
 #include <pios_rcvr_priv.h>
 
-enum pios_rcvr_dev_magic {
-    PIOS_RCVR_DEV_MAGIC = 0x99aabbcc,
-};
+uint32_t PIOS_RCVR_DEV_MAGIC = 0x99aabbcc;
 
 struct pios_rcvr_dev {
-    enum pios_rcvr_dev_magic magic;
+    uint32_t magic;
     uint32_t lower_id;
     const struct pios_rcvr_driver *driver;
 };

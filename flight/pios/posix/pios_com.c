@@ -41,12 +41,10 @@
 #include "pios_delay.h" /* PIOS_DELAY_WaitmS */
 #endif
 
-enum pios_com_dev_magic {
-    PIOS_COM_DEV_MAGIC = 0xaa55aa55,
-};
+uint32_t PIOS_COM_DEV_MAGIC = 0xaa55aa55;
 
 struct pios_com_dev {
-    enum pios_com_dev_magic magic;
+    uint32_t magic;
     uint32_t lower_id;
     const struct pios_com_driver *driver;
 

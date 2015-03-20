@@ -5,12 +5,10 @@
 
 #include <pios_rcvr_priv.h>
 
-enum pios_rcvr_dev_magic {
-    PIOS_RCVR_DEV_MAGIC = 0x99aabbcc,
-};
+uint32_t PIOS_RCVR_DEV_MAGIC = 0x99aabbcc;
 
 struct pios_rcvr_dev {
-    enum pios_rcvr_dev_magic magic;
+    uint32_t magic;
     uint32_t lower_id;
     const struct pios_rcvr_driver *driver;
 };
@@ -67,7 +65,7 @@ static struct pios_rcvr_dev *PIOS_RCVR_find_dev(uint32_t rcvr_dev_id)
  * \param[in] id
  * \return < 0 if initialisation failed
  */
-int32_t PIOS_RCVR_Init(uint32_t *rcvr_id, const struct pios_rcvr_driver *driver, uint32_t lower_id)
+int32_t PIOS_RCVR_Init(uint32_t *rcvr_id, const struct pios_rcvr_driver *driver, const uint32_t lower_id)
 {
     PIOS_DEBUG_Assert(rcvr_id);
     PIOS_DEBUG_Assert(driver);
