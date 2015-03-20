@@ -92,6 +92,7 @@ This approach is tested and works both on Linux and BSD style Unix (MAC OS X)
 
 */
 
+#define _POSIX_C_SOURCE 199506L
 #include <pthread.h>
 #include <sched.h>
 #include <signal.h>

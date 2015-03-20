@@ -29,6 +29,7 @@
 
 
 /* Project Includes */
+#define _POSIX_C_SOURCE 199309L
 #include "pios.h"
 
 #if defined(PIOS_INCLUDE_DELAY)
