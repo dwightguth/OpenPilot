@@ -47,7 +47,7 @@ int32_t UAVObjPers_stub(__attribute__((unused)) UAVObjHandle obj_handle, __attri
 {
     return 0;
 }
-int32_t UAVObjSave(UAVObjHandle obj_handle, uint16_t instId)  __attribute__((weak, alias("UAVObjPers_stub")));;
+int32_t UAVObjSave(UAVObjHandle obj_handle, uint16_t instId)  __attribute__((weak, alias("UAVObjPers_stub")));
 int32_t UAVObjLoad(UAVObjHandle obj_handle, uint16_t instId) __attribute__((weak, alias("UAVObjPers_stub")));
 int32_t UAVObjDelete(UAVObjHandle obj_handle, uint16_t instId) __attribute__((weak, alias("UAVObjPers_stub")));
 
@@ -67,6 +67,8 @@ static const UAVObjMetadata defMetadata = {
 };
 
 static UAVObjStats stats;
+
+UAVObjHandle _uavo_handles[UAVOBJECTS_COUNT];
 
 /**
  * Initialize the object manager
@@ -982,7 +984,7 @@ int32_t UAVObjSetInstanceDataField(UAVObjHandle obj_handle, uint16_t instId, con
         }
 
         // Set data
-        memcpy((char *)InstanceData(instEntry) + offset, dataIn, size);
+        memcpy((uint8_t *)InstanceData(instEntry) + offset, dataIn, size);
     }
 
 
@@ -1090,7 +1092,7 @@ int32_t UAVObjGetInstanceDataField(UAVObjHandle obj_handle, uint16_t instId, voi
         }
 
         // Set data
-        memcpy(dataOut, InstanceData(instEntry) + offset, size);
+        memcpy(dataOut, (uint8_t *)InstanceData(instEntry) + offset, size);
     }
 
     rc = 0;

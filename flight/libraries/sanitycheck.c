@@ -182,7 +182,7 @@ int32_t configuration_check()
 
     // Check throttle/collective channel range for valid configuration of input for critical control
     SystemSettingsThrustControlOptions thrustType;
-    SystemSettingsThrustControlGet(&thrustType);
+    SystemSettingsThrustControlGet((uint8_t *)&thrustType);
     ManualControlSettingsChannelMinData channelMin;
     ManualControlSettingsChannelMaxData channelMax;
     ManualControlSettingsChannelMinGet(&channelMin);
