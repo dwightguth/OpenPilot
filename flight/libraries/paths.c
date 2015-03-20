@@ -49,31 +49,31 @@ void path_progress(PathDesiredData *path, float *cur_point, struct path_status *
     switch (path->Mode) {
     case PATHDESIRED_MODE_BRAKE: // should never get here...
     case PATHDESIRED_MODE_FLYVECTOR:
-        return path_vector(path, cur_point, status, true);
+        path_vector(path, cur_point, status, true);
 
         break;
     case PATHDESIRED_MODE_DRIVEVECTOR:
-        return path_vector(path, cur_point, status, false);
+        path_vector(path, cur_point, status, false);
 
         break;
     case PATHDESIRED_MODE_FLYCIRCLERIGHT:
     case PATHDESIRED_MODE_DRIVECIRCLERIGHT:
-        return path_circle(path, cur_point, status, 1);
+        path_circle(path, cur_point, status, 1);
 
         break;
     case PATHDESIRED_MODE_FLYCIRCLELEFT:
     case PATHDESIRED_MODE_DRIVECIRCLELEFT:
-        return path_circle(path, cur_point, status, 0);
+        path_circle(path, cur_point, status, 0);
 
         break;
     case PATHDESIRED_MODE_FLYENDPOINT:
-        return path_endpoint(path, cur_point, status, true);
+        path_endpoint(path, cur_point, status, true);
 
         break;
     case PATHDESIRED_MODE_DRIVEENDPOINT:
     default:
         // use the endpoint as default failsafe if called in unknown modes
-        return path_endpoint(path, cur_point, status, false);
+        path_endpoint(path, cur_point, status, false);
 
         break;
     }
