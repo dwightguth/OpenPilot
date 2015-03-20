@@ -39,7 +39,7 @@ void PIOS_DELTATIME_Init(PiOSDeltatimeConfig *config, float average, float min, 
     config->max     = max;
     config->alpha   = alpha;
     config->last    = PIOS_DELAY_GetRaw();
-};
+}
 
 
 float PIOS_DELTATIME_GetAverageSeconds(PiOSDeltatimeConfig *config)
