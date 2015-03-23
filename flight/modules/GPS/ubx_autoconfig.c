@@ -159,6 +159,7 @@ static void build_request(UBXSentPacket_t *packet, uint8_t classID, uint8_t mess
     *bytes_to_send = prepare_packet(packet, classID, messageID, 0);
 }
 
+#if defined(PIOS_INCLUDE_GPS_UBX_PARSER)
 void config_rate(uint16_t *bytes_to_send)
 {
     memset(status->working_packet.buffer, 0, sizeof(UBXSentHeader_t) + sizeof(ubx_cfg_rate_t));
@@ -180,7 +181,7 @@ void config_rate(uint16_t *bytes_to_send)
     status->requiredAck.clsID = UBX_CLASS_CFG;
     status->requiredAck.msgID = UBX_ID_CFG_RATE;
 }
-
+#endif
 void config_nav(uint16_t *bytes_to_send)
 {
     memset(status->working_packet.buffer, 0, sizeof(UBXSentHeader_t) + sizeof(ubx_cfg_nav5_t));
@@ -260,7 +261,7 @@ static void configure(uint16_t *bytes_to_send)
         return;
     }
 }
-
+#if defined(PIOS_INCLUDE_GPS_UBX_PARSER)
 static void enable_sentences(__attribute__((unused)) uint16_t *bytes_to_send)
 {
     int8_t msg = status->lastConfigSent + 1;
@@ -392,6 +393,7 @@ void ubx_autoconfig_run(char * *buffer, uint16_t *bytes_to_send, bool gps_connec
     }
     }
 }
+#endif
 
 void ubx_autoconfig_set(ubx_autoconfig_settings_t config)
 {
