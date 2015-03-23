@@ -57,7 +57,9 @@ bool UAVObjectGeneratorFlight::generate(UAVObjectParser *parser, QString templat
         flightObjInit.append("#ifdef UAVOBJ_INIT_" + info->namelc + "\n");
         flightObjInit.append("    " + info->name + "Initialize();\n");
         flightObjInit.append("#endif\n");
+        objInc.append("#ifdef UAVOBJ_INIT_" + info->namelc + "\n");
         objInc.append("#include \"" + info->namelc + ".h\"\n");
+        objInc.append("#endif\n");
         objFileNames.append(" " + info->namelc);
         objNames.append(" " + info->name);
         if (parser->getNumBytes(objidx) > sizeCalc) {
