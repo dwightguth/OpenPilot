@@ -274,7 +274,7 @@ LDFLAGS += $(patsubst %,-L%,$(EXTRA_LIBDIRS))
 LDFLAGS += -lc
 LDFLAGS += $(patsubst %,-l%,$(EXTRA_LIBS))
 LDFLAGS += $(MATH_LIB)
-LDFLAGS += -lc -lgcc -lpthread -lrt
+LDFLAGS += -lc -lpthread -lrt
 
 #Linker scripts
 LDFLAGS += $(addprefix -T,$(LINKER_SCRIPTS_APP))
