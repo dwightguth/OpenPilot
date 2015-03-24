@@ -316,7 +316,7 @@ is included as it is used by the port layer. */
 #endif
 
 #ifndef portPOINTER_SIZE_TYPE
-	#define portPOINTER_SIZE_TYPE uint32_t
+	#define portPOINTER_SIZE_TYPE uintptr_t
 #endif
 
 /* Remove any unused trace macros. */
