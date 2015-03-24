@@ -5,6 +5,6 @@
 # has been defined and add in the target-specific pieces separately.
 #
 
-FREERTOS_DIR	:= $(dir $(lastword $(MAKEFILE_LIST)))/Source
+FREERTOS_DIR	:= $(dir $(lastword $(MAKEFILE_LIST)))Source
 SRC		+= $(sort $(wildcard $(FREERTOS_DIR)/*.c))
 EXTRAINCDIRS	+= $(FREERTOS_DIR)/include
