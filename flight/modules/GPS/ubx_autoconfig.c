@@ -235,6 +235,7 @@ void config_save(uint16_t *bytes_to_send)
     status->requiredAck.clsID = UBX_CLASS_CFG;
     status->requiredAck.msgID = UBX_ID_CFG_CFG;
 }
+#if defined(PIOS_INCLUDE_GPS_UBX_PARSER)
 static void configure(uint16_t *bytes_to_send)
 {
     switch (status->lastConfigSent) {
@@ -261,7 +262,7 @@ static void configure(uint16_t *bytes_to_send)
         return;
     }
 }
-#if defined(PIOS_INCLUDE_GPS_UBX_PARSER)
+
 static void enable_sentences(__attribute__((unused)) uint16_t *bytes_to_send)
 {
     int8_t msg = status->lastConfigSent + 1;

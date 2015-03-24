@@ -31,8 +31,12 @@
 #ifndef UBX_H
 #define UBX_H
 #include "openpilot.h"
+#ifdef UAVOBJ_INIT_gpspositionsensor
 #include "gpspositionsensor.h"
+#endif
+#ifdef UAVOBJ_INIT_gpsextendedstatus
 #include "gpsextendedstatus.h"
+#endif
 #ifndef PIOS_GPS_MINIMAL
 #include "auxmagsensor.h"
 #endif
